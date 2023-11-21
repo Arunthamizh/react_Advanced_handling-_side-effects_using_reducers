@@ -11,10 +11,25 @@ const Login = (props) => {
   const [passwordIsValid, setPasswordIsValid] = useState();
   const [formIsValid, setFormIsValid] = useState(false);
 
+  // * useEffect
   // ! The useEffect function will run whenever one of the dependencies changes
   // ! so we dont need to use same function in multiple places
   useEffect(() => {
-    setFormIsValid(enteredEmail.includes('@') && enteredPassword.trim().length > 6)
+    const identifer =  setTimeout(() => {
+      console.log('Checking form validity!');
+      setFormIsValid(
+        enteredEmail.includes('@') && enteredPassword.trim().length > 6
+      );      
+    }, 500);
+
+    // * useEffect cleanup function
+    // ! It will be executed before the useEffect function executes
+    // ! Cleanup function will not called at first time.
+
+    return () => {
+      console.log('Clean up');
+      identifer && clearTimeout(identifer);
+    }
   },[enteredEmail, enteredPassword])
 
   const emailChangeHandler = (event) => {
