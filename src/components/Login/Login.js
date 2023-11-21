@@ -12,7 +12,7 @@ const Login = (props) => {
   const [formIsValid, setFormIsValid] = useState(false);
 
   // * useEffect
-  // ! The useEffect function will run whenever one of the dependencies changes
+  // ! The useEffect function will run whenever one of the dependencies changes and every component render cycle
   // ! so we dont need to use same function in multiple places
   useEffect(() => {
     const identifer =  setTimeout(() => {
