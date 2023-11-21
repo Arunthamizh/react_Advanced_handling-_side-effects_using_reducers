@@ -14,6 +14,19 @@ const Login = (props) => {
   // * useEffect
   // ! The useEffect function will run whenever one of the dependencies changes and every component render cycle
   // ! so we dont need to use same function in multiple places
+  // ! if we mention an empty array as the second argument, useEffect will be called only once when the component is mounted
+  // ! If didn't mention an array as the second argument, useEffect will be called every time the component is re-rendered
+
+  // !  useEffect will be called every time
+  // useEffect(() => {
+    
+  // })
+
+  // ! useEffect called only once
+  // useEffect(() => {
+    
+  // }, [])
+
   useEffect(() => {
     const identifer =  setTimeout(() => {
       console.log('Checking form validity!');
