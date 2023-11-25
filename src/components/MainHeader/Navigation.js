@@ -1,15 +1,18 @@
-import React from 'react';
+import React, { useContext} from 'react';
 import AuthContext from '../store/auth-context';
 import classes from './Navigation.module.css';
 
 const Navigation = (props) => {
-  return (
-    <AuthContext.Consumer>
+  // return (
+    // <AuthContext.Consumer>
       {/* consumer takes a child it should a function
         between curly brace and as agument(ctx) we will get
         the context data
       */}
-      {(ctx) => {
+      // {(ctx) => {
+
+      // now commented above code because we are going to use useContext hook
+      const ctx = useContext(AuthContext);
         return (
           <nav className={classes.nav}>
             <ul>
@@ -31,9 +34,9 @@ const Navigation = (props) => {
             </ul>
           </nav>
         );
-      }}
-    </AuthContext.Consumer>
-  );
+      // }}
+    // </AuthContext.Consumer>
+  // );
 };
 
 export default Navigation;
