@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useState, useContext } from "react";
+import React, { useEffect, useReducer, useState, useContext, useRef } from "react";
 import AuthContext from "../store/auth-context";
 import Card from "../UI/Card/Card";
 import classes from "./Login.module.css";
@@ -54,6 +54,9 @@ const Login = (props) => {
   });
 
   const authCtx = useContext(AuthContext);
+
+  const emailInputRef = useRef();;
+  const passwordInputRef = useRef();
 
   // * useEffect
   // ! The useEffect function will run whenever one of the dependencies changes and every component render cycle
@@ -125,8 +128,15 @@ const Login = (props) => {
   };
 
   const submitHandler = (event) => {
-    event.preventDefault();
-    authCtx.onLogin(emailState.value, passwordState.value);
+    event.preventDefault(); // it 
+    if (formIsValid) {
+      authCtx.onLogin(emailState.value, passwordState.value);
+    } else if (!emailIsValid) {
+      emailInputRef.current.focus();
+    } else {
+      passwordInputRef.current.focus();
+    }
+
   };
 
   return (
@@ -164,6 +174,7 @@ const Login = (props) => {
         
         {/* The above code was commented because we are using it as component */}
         <Input
+          ref={emailInputRef}
           isValid={emailState.isValid}
           type={"email"}
           id={"email"}
@@ -174,6 +185,7 @@ const Login = (props) => {
         />
 
         <Input
+          ref={passwordInputRef}
           isValid={passwordState.isValid}
           type={"password"}
           id={"password"}
@@ -184,7 +196,7 @@ const Login = (props) => {
         />
 
         <div className={classes.actions}>
-          <Button type="submit" className={classes.btn} disabled={!formIsValid}>
+          <Button type="submit" className={classes.btn} >
             Login
           </Button>
         </div>
