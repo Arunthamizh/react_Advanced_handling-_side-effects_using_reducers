@@ -1,5 +1,5 @@
-import React, { useEffect, useReducer, useState } from "react";
-
+import React, { useEffect, useReducer, useState, useContext } from "react";
+import AuthContext from "../store/auth-context";
 import Card from "../UI/Card/Card";
 import classes from "./Login.module.css";
 import Button from "../UI/Button/Button";
@@ -52,9 +52,11 @@ const Login = (props) => {
     isValid: false
   })
 
+  const authCtx = useContext(AuthContext);
+
   // * useEffect
   // ! The useEffect function will run whenever one of the dependencies changes and every component render cycle
-  // ! so we dont need to use same function in multiple places
+  // ! so we don`t need to use same function in multiple places
   // ! if we mention an empty array as the second argument, useEffect will be called only once when the component is mounted
   // ! If didn't mention an array as the second argument, useEffect will be called every time the component is re-rendered
 
@@ -125,7 +127,7 @@ const { isValid: passwordIsValid } = passwordState;
 
   const submitHandler = (event) => {
     event.preventDefault();
-    props.onLogin(emailState.value, passwordState.value);
+    authCtx.onLogin(emailState.value, passwordState.value);
   };
 
   return (

@@ -11,7 +11,7 @@ const Navigation = (props) => {
       */}
       // {(ctx) => {
 
-      // now commented above code because we are going to use useContext hook
+      // ! now commented above code because we are going to use useContext hook
       const ctx = useContext(AuthContext);
         return (
           <nav className={classes.nav}>

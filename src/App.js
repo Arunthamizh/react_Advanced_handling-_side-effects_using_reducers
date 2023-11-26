@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 
 import Login from "./components/Login/Login";
 import Home from "./components/Home/Home";
@@ -6,7 +6,8 @@ import MainHeader from "./components/MainHeader/MainHeader";
 import AuthContext from "./components/store/auth-context";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // ! below code moved to context provider
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   // ! this will create a infinate loop
   // ! Because when update the useState the function will be called again and react render the component(infinate loop)
@@ -21,43 +22,50 @@ function App() {
   // ! useEffect will be called only once when the component is mounted and after component re-evaluation
   // ! If we pass an empty array as the second argument, useEffect will be called every time the component is re-rendered
   // ! If we pass an array with a value, useEffect will be called only when the value in the array changes
-  useEffect(() => {
-    const storedUserLoggedInInformation = localStorage.getItem("isLoggedIn");
-    if (storedUserLoggedInInformation === "1") {
-      setIsLoggedIn(true);
-    }
-  }, []);
 
-  const loginHandler = (email, password) => {
-    // We should of course check email and password
+  // ! below code moved to context provider
+  // useEffect(() => {
+  //   const storedUserLoggedInInformation = localStorage.getItem("isLoggedIn");
+  //   if (storedUserLoggedInInformation === "1") {
+  //     setIsLoggedIn(true);
+  //   }
+  // }, []);
+
+      // We should of course check email and password
     // But it's just a dummy/ demo anyways
-    localStorage.setItem("isLoggedIn", "1");
-    setIsLoggedIn(true);
-  };
 
-  const logoutHandler = () => {
-    localStorage.removeItem("isLoggedIn");
-    setIsLoggedIn(false);
-  };
+// ! below code moved to context provider
+  // const loginHandler = (email, password) => {
+  //   localStorage.setItem("isLoggedIn", "1");
+  //   setIsLoggedIn(true);
+  // };
+
+// ! below code moved to context provider
+  // const logoutHandler = () => {
+  //   localStorage.removeItem("isLoggedIn");
+  //   setIsLoggedIn(false);
+  // };
+
+  const ctx = useContext(AuthContext)
 
   return (
-    // <React.Fragment>
+    <React.Fragment>
     //  ! In provider props we can add values prop and pass it to all the components
-    // 
-    <AuthContext.Provider 
+    // ! moved to the context provider
+    {/* <AuthContext.Provider 
       value={
       {
         isLoggedIn: isLoggedIn,
         onLogout: logoutHandler
       }
-      }>
+      }> */}
       <MainHeader />
       <main>
-        {!isLoggedIn && <Login onLogin={loginHandler} />}
-        {isLoggedIn && <Home onLogout={logoutHandler} />}
+        {!ctx.isLoggedIn && <Login  />}
+        {ctx.isLoggedIn && <Home  />}
       </main>
-      </AuthContext.Provider>
-    // </React.Fragment>
+      {/* </AuthContext.Provider> */}
+    </React.Fragment>
   );
 }
 
