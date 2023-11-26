@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
-
+// ! React context in NOT optimized for high frequency re-renders(changes)
+// !React context is not recommended for high frequency re-renders(multiple changes per second)
+// ! For that we can use Redux
+// **********
 // ! createContext is used to manage state to avoid chaining the state
 // ! The createContext function is a feature provided by React
 // ! That allows you to create a context object. Context in React 
