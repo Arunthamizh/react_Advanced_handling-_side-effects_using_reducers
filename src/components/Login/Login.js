@@ -3,6 +3,7 @@ import AuthContext from "../store/auth-context";
 import Card from "../UI/Card/Card";
 import classes from "./Login.module.css";
 import Button from "../UI/Button/Button";
+import Input from "../UI/Input/Input";
 
 // ! sate contains the current state (latest state value)
 // ! action contains the type of action that will change the state
@@ -24,7 +25,7 @@ const passwordReducer = (state, action) => {
     return { value: state.value, isValid: state.value.trim().length > 6 };
   }
   return { value: "", isValid: false };
-}
+};
 
 const Login = (props) => {
   // ! commented because we are using useReducer
@@ -49,8 +50,8 @@ const Login = (props) => {
 
   const [passwordState, dispatchPassword] = useReducer(passwordReducer, {
     value: "",
-    isValid: false
-  })
+    isValid: false,
+  });
 
   const authCtx = useContext(AuthContext);
 
@@ -73,13 +74,13 @@ const Login = (props) => {
   // ! useEffect
   // * commented because we are using useReducer
 
-// !below code is for object destructuring with alias name
-const { isValid: emailIsValid } = emailState;
-const { isValid: passwordIsValid } = passwordState;
+  // !below code is for object destructuring with alias name
+  const { isValid: emailIsValid } = emailState;
+  const { isValid: passwordIsValid } = passwordState;
 
   useEffect(() => {
-    const identifier =  setTimeout(() => {
-      console.log('Checking form validity!');
+    const identifier = setTimeout(() => {
+      console.log("Checking form validity!");
       setFormIsValid(
         // emailState.isValid && passwordState.isValid
         emailIsValid && passwordIsValid
@@ -91,12 +92,10 @@ const { isValid: passwordIsValid } = passwordState;
     // ! Cleanup function will not called at first time.
 
     return () => {
-      console.log('Clean up');
+      console.log("Clean up");
       identifier && clearTimeout(identifier);
-    }
-  },[emailIsValid, passwordIsValid])
-
-
+    };
+  }, [emailIsValid, passwordIsValid]);
 
   const emailChangeHandler = (event) => {
     // setEnteredEmail(event.target.value);
@@ -133,7 +132,7 @@ const { isValid: passwordIsValid } = passwordState;
   return (
     <Card className={classes.login}>
       <form onSubmit={submitHandler}>
-        <div
+        {/* <div
           className={`${classes.control} ${
             emailState.isValid === false ? classes.invalid : ""
           }`}
@@ -146,8 +145,9 @@ const { isValid: passwordIsValid } = passwordState;
             onChange={emailChangeHandler}
             onBlur={validateEmailHandler}
           />
-        </div>
-        <div
+        </div> */}
+
+        {/* <div
           className={`${classes.control} ${
             passwordState.isValid === false ? classes.invalid : ""
           }`}
@@ -160,7 +160,29 @@ const { isValid: passwordIsValid } = passwordState;
             onChange={passwordChangeHandler}
             onBlur={validatePasswordHandler}
           />
-        </div>
+        </div> */}
+        
+        {/* The above code was commented because we are using it as component */}
+        <Input
+          isValid={emailState.isValid}
+          type={"email"}
+          id={"email"}
+          label={"E-Mail"}
+          value={emailState.value}
+          onChange={emailChangeHandler}
+          onBlur={validateEmailHandler}
+        />
+
+        <Input
+          isValid={passwordState.isValid}
+          type={"password"}
+          id={"password"}
+          label={"Password"}
+          value={passwordState.value}
+          onChange={passwordChangeHandler}
+          onBlur={validatePasswordHandler}
+        />
+
         <div className={classes.actions}>
           <Button type="submit" className={classes.btn} disabled={!formIsValid}>
             Login
